@@ -1,5 +1,6 @@
 {
   "name": "stauth/laravel-stauth",
+  "description": "Staging server athorization package, .htaccess alternative",
   "license": "MIT",
   "version": "0.0.1",
   "require": {
