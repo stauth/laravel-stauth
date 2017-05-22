@@ -26,7 +26,7 @@ class StauthProtection
      */
     public function handle($request, Closure $next)
     {
-        if (App::environment() !== Config::get('app.protected_env'))
+        if (App::environment() !== Config::get('stauth.protected_env'))
             return $next($request);
 
         if ( in_array($request->route()->getName(), $this->whiteListedRoutes))
