@@ -1,6 +1,7 @@
 <?php
 
 use GuzzleHttp\Client;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
@@ -12,12 +13,11 @@ Route::group(['middleware' => ['web']], function () {
 
 });
 
-Route::group(['middleware' => ['stauth']], function () {
+Route::group(['middleware' => ['web']], function () {
 
     Route::post('/stauth/authorize', function () {
 
         $jwt = Input::get('token');
-
         $client = new Client();
 
         try {
@@ -42,7 +42,7 @@ Route::group(['middleware' => ['stauth']], function () {
             Session::save();
         }
 
-        return $response;
+        return new JsonResponse([$response->getBody()->getContents()], $response->getStatusCode());
 
     })->name('stauth-authorization');
 });
