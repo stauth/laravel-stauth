@@ -42,7 +42,7 @@
                         redirect: false
                     },
                     theme: {
-                        logo: 'http://stauth.io/favicon-32x32.png',
+                        logo: 'https://stauth.io/favicon-32x32.png',
                         primaryColor: '#397C6A',
                         displayName: 'Stauth protection'
                     },
