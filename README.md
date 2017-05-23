@@ -48,18 +48,14 @@ Add Stauth middleware group in `app/Http/Kernel.php` add stauth section to the `
      * @var array
      */
     protected $middlewareGroups = [
-    
-    ...
-
-        'stauth' => [
-            'throttle:60,1',
-            'bindings',
+   
+        'web' => [
             \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            \Stauth\Middleware\StauthProtection::class
-        ]
-    ];
+    ...
     
+            \Stauth\Middleware\StauthProtection::class,
     ...
 ```
 
