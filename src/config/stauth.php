@@ -22,6 +22,7 @@ return [
     | Generate access token for your domain at www.stauth.io
     |
     */
+
     'access_token' => env('STAUTH_ACCESS_TOKEN'),
 
 ];
