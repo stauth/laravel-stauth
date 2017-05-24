@@ -5,7 +5,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
-Route::group(['middleware' => ['web']], function () {
+$middleware = ['web'];
+if (config('responsecache.enabled')) {
+    $middleware[] = 'doNotCacheResponse';
+}
+
+Route::group(['middleware' => $middleware], function () {
 
     Route::get('/stauth/protected', function () {
         return view('stauth::home');
@@ -13,7 +18,7 @@ Route::group(['middleware' => ['web']], function () {
 
 });
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => $middleware], function () {
 
     Route::post('/stauth/authorize', function () {
 
