@@ -38,7 +38,7 @@ Add Laravel Stauth service provider to `providers` array in `config/app.php`.
 ?>
 ```
 
-Add Stauth middleware group in `app/Http/Kernel.php` add stauth section to the `$middlewareGroups` array:
+Add Stauth middleware in `app/Http/Kernel.php`, it is **very important** that `StauthProtection` is **above** any response cache extension middleware like laravel-responsecache:
 
 ```php
 
@@ -52,11 +52,15 @@ Add Stauth middleware group in `app/Http/Kernel.php` add stauth section to the `
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\Session\Middleware\StartSession::class, 
     ...
     
+    
             \Stauth\Middleware\StauthProtection::class,
+    
+    
     ...
+            \Spatie\ResponseCache\Middlewares\CacheResponse::class,
 ```
 
 Generate access token at [stauth.io](https://www.stauth.io) and add it as a `STAUTH_ACCESS_TOKEN` param in `.env` file:
@@ -87,7 +91,7 @@ STAUTH_PROTECTED_ENV=local
 
 ```
 
-## Other
+## Publishing configuration
 
 You can also publish configuration and update required params in php file:
 
@@ -96,3 +100,7 @@ You can also publish configuration and update required params in php file:
 php artisan vendor:publish --provider="Stauth\StauthServiceProvider" --tag=config
 
 ```
+
+## Cache
+
+Please keep in mind that this package takes adventage of `csrf_token`, therefore it is important to exclude both routes `/stauth/protected` and `/stauth/authorize` from any response caching engines.
