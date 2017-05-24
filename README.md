@@ -91,7 +91,7 @@ STAUTH_PROTECTED_ENV=local
 
 ```
 
-## Publishing configuration
+## Configuration
 
 You can also publish configuration and update required params in php file:
 
