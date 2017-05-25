@@ -13,6 +13,26 @@ Staging server athorization package, alternative for .htaccess, register at [sta
 composer require stauth/laravel-stauth
 ```
 
+#### For local & staging
+
+Add `StauthServiceProvider` to `AppServiceProvider`:
+
+```php
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        if ($this->app->environment('local', 'staging')) {
+            $this->app->register(StauthServiceProvider::class);
+        }
+    }
+```
+
+#### For production
+
 Add Laravel Stauth service provider to `providers` array in `config/app.php`.
 
 ```php
