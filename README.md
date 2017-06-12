@@ -15,7 +15,7 @@ composer require stauth/laravel-stauth
 
 #### For local & staging
 
-Add `StauthServiceProvider` to `AppServiceProvider`:
+If you don't want Stauth service provider to be exeuted at production environment, add `StauthServiceProvider` to `AppServiceProvider`:
 
 ```php
     /**
@@ -33,29 +33,17 @@ Add `StauthServiceProvider` to `AppServiceProvider`:
 
 #### For production
 
-Add Laravel Stauth service provider to `providers` array in `config/app.php`.
+If you don't mind Stauth Stauth service provider being executed at production environment, or you want to protect your production env, add it to `providers` array in `config/app.php`.
 
 ```php
-<?php
 
 'providers' => [
 
-        /*
-         * Laravel Framework Service Providers...
-         */
-        Illuminate\Auth\AuthServiceProvider::class,
-        Illuminate\Broadcasting\BroadcastServiceProvider::class,
-	
-	...
-        
         /**
          * Staging access control
          */
         Stauth\StauthServiceProvider::class,        
-        ...
-
 ],
-?>
 ```
 
 Add Stauth middleware in `app/Http/Kernel.php`, it is **very important** that `StauthProtection` is **above** any response cache extension middleware like laravel-responsecache:
@@ -70,29 +58,13 @@ Add Stauth middleware in `app/Http/Kernel.php`, it is **very important** that `S
     protected $middlewareGroups = [
    
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class, 
-    ...
-    
-    
+            ...
             \Stauth\Middleware\StauthProtection::class,
-    
-    
-    ...
-            \Spatie\ResponseCache\Middlewares\CacheResponse::class,
 ```
 
 Generate access token at [stauth.io](https://www.stauth.io) and add it as a `STAUTH_ACCESS_TOKEN` param in `.env` file:
 
 ```bash
-BROADCAST_DRIVER=log
-CACHE_DRIVER=file
-SESSION_DRIVER=file
-QUEUE_DRIVER=sync
-
-...
-
 STAUTH_ACCESS_TOKEN=verylongchainoflettersmixedwithsomerandomnumbers123
 
 ```
@@ -100,15 +72,7 @@ STAUTH_ACCESS_TOKEN=verylongchainoflettersmixedwithsomerandomnumbers123
 By default protected environment is `staging`, in order to change this, add `STAUTH_PROTECTED_ENV` param in `.env` file: 
 
 ```bash
-BROADCAST_DRIVER=log
-CACHE_DRIVER=file
-SESSION_DRIVER=file
-QUEUE_DRIVER=sync
-
-...
-
 STAUTH_PROTECTED_ENV=local
-
 ```
 
 ## Configuration
