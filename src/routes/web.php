@@ -13,6 +13,11 @@ if (config('responsecache.enabled')) {
 Route::group(['middleware' => $middleware], function () {
 
     Route::get('/stauth/protected', function () {
+
+        if($this->app->bound('debugbar')) {
+            app('debugbar')->disable();
+        }
+
         return view('stauth::home');
     })->name('stauth-protection');
 
@@ -22,6 +27,7 @@ Route::group(['middleware' => $middleware], function () {
 
     Route::post('/stauth/authorize', function () {
 
+        app('debugbar')->disable();
         $jwt = Input::get('token');
         $client = new Client();
 
