@@ -8,6 +8,6 @@
     <script src="http://cdn.auth0.com/js/lock/10.15.1/lock.min.js"></script>
     <script src="https://www.stauth.io/js/laravel-protection.js"></script>
 </head>
-<body onload="showLoginForm('{{ csrf_token() }}', '{{ url('/') }}');">
+<body onload="showLoginForm('{{ csrf_token() }}', '{{ Session::get('stauth-last-url') }}');">
 </body>
 </html>

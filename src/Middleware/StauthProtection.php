@@ -26,6 +26,10 @@ class StauthProtection
      */
     public function handle($request, Closure $next)
     {
+        if ( Session::get('stauth-last-url') === null) {
+            Session::put('stauth-last-url', url('/'));
+        }
+
         if (App::environment() !== Config::get('stauth.protected_env'))
             return $next($request);
 
@@ -35,6 +39,7 @@ class StauthProtection
         if ( Session::get('stauth-authorized'))
             return $next($request);
 
+        Session::put('stauth-last-url', $request->url());
         return redirect()->route('stauth-protection');
     }
 }
