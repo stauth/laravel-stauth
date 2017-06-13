@@ -13,11 +13,18 @@ Staging server athorization package, alternative for .htaccess, register at [sta
 composer require stauth/laravel-stauth
 ```
 
-#### For local & staging
+#### Configuration - local & staging
 
-If you don't want Stauth service provider to be exeuted at production environment, add `StauthServiceProvider` to `AppServiceProvider`:
+If you don't want Stauth service provider to be exeuted at production environment, create `StauthProtectionServiceProvider` 
 
 ```php
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Stauth\StauthServiceProvider;
+
+class StauthProtectionServiceProvider extends ServiceProvider
+{
     /**
      * Register any application services.
      *
@@ -29,11 +36,25 @@ If you don't want Stauth service provider to be exeuted at production environmen
             $this->app->register(StauthServiceProvider::class);
         }
     }
+}
 ```
 
-#### For production
+And add it to `config/app.php` below `AppServiceProvider`:
 
-If you don't mind Stauth Stauth service provider being executed at production environment, or you want to protect your production env, add it to `providers` array in `config/app.php`.
+```php
+
+'providers' => [
+
+        /**
+         * Stauth app access protection
+         */
+        App\Providers\StauthProtectionServiceProvider::class,     
+],
+```
+
+#### Configuration - production
+
+If you don't mind Stauth service provider being executed at production environment, or you want to protect your production env, add it directly at `providers` array in `config/app.php`.
 
 ```php
 
@@ -60,6 +81,7 @@ Add Stauth middleware in `app/Http/Kernel.php`, it is **very important** that `S
         'web' => [
             ...
             \Stauth\Middleware\StauthProtection::class,
+    ],
 ```
 
 Generate access token at [stauth.io](https://www.stauth.io) and add it as a `STAUTH_ACCESS_TOKEN` param in `.env` file:
@@ -75,9 +97,12 @@ By default protected environment is `staging`, in order to change this, add `STA
 STAUTH_PROTECTED_ENV=local
 ```
 
-## Configuration
+## Other
+If you want to know or do more, read below.
 
-You can also publish configuration and update required params in php file:
+### Publish configuration
+
+You can publish configuration and update required params in php file:
 
 ```bash
 
@@ -85,6 +110,6 @@ php artisan vendor:publish --provider="Stauth\StauthServiceProvider" --tag=confi
 
 ```
 
-## Cache
+### Cache
 
 Please keep in mind that this package takes adventage of `csrf_token`, therefore it is important to exclude both routes `/stauth/protected` and `/stauth/authorize` from any response caching engines.
