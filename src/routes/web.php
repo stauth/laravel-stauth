@@ -21,9 +21,6 @@ Route::group(['middleware' => $middleware], function () {
         return view('stauth::home');
     })->name('stauth-protection');
 
-});
-
-Route::group(['middleware' => $middleware], function () {
 
     Route::post('/stauth/authorize', function () {
 
@@ -56,4 +53,13 @@ Route::group(['middleware' => $middleware], function () {
         return new JsonResponse([$response->getBody()->getContents()], $response->getStatusCode());
 
     })->name('stauth-authorization');
+
+    Route::get('{any}', function ($any) {
+        if (Session::get('stauth-authorized')) {
+            abort(404);
+        }
+
+        return redirect(route('stauth-protection'));
+
+    })->where('any', '.*');
 });
