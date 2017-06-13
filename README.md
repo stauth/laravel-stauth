@@ -13,7 +13,7 @@ Staging server athorization package, alternative for .htaccess, register at [sta
 composer require stauth/laravel-stauth
 ```
 
-#### Configuration - local & staging
+### Local and staging
 
 If you don't want Stauth service provider to be exeuted at production environment, create `StauthProtectionServiceProvider` 
 
@@ -52,7 +52,7 @@ And add it to `config/app.php` below `AppServiceProvider`:
 ],
 ```
 
-#### Configuration - production
+### Production
 
 If you don't mind Stauth service provider being executed at production environment, or you want to protect your production env, add it directly at `providers` array in `config/app.php`.
 
