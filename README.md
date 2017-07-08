@@ -1,5 +1,6 @@
 # Laravel Stauth
 [![Latest Stable Version](https://poser.pugx.org/stauth/laravel-stauth/version)](https://packagist.org/packages/stauth/laravel-stauth)
+[![Total Downloads](https://poser.pugx.org/stauth/laravel-stauth/downloads)](https://packagist.org/packages/stauth/laravel-stauth)
 [![License](https://poser.pugx.org/stauth/laravel-stauth/license)](https://packagist.org/packages/stauth/laravel-stauth)
 [![composer.lock available](https://poser.pugx.org/stauth/laravel-stauth/composerlock)](https://packagist.org/packages/stauth/laravel-stauth)
 
