@@ -2,10 +2,9 @@
   "name": "stauth/laravel-stauth",
   "description": "Staging server athorization package, .htaccess alternative",
   "license": "MIT",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "require": {
-    "laravel/framework": "5.4.*",
-    "illuminate/support": "5.*",
+    "laravel/framework": "5.5.*",
     "guzzlehttp/guzzle": "6.*",
     "hedronium/spaceless-blade": "^2.0",
     "symfony/psr-http-message-bridge": "~1.0"
