@@ -2,7 +2,7 @@
   "name": "stauth/laravel-stauth",
   "description": "Staging server athorization package, .htaccess alternative",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "0.0.7",
   "require": {
     "laravel/framework": "5.5.*",
     "guzzlehttp/guzzle": "6.*",
